@@ -3,8 +3,13 @@ package com.nek12.catfacts.ui.screens.cat_fact
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -35,40 +40,41 @@ fun CatFactScreen(
     CatFactScreenContent(
         state = state,
         onRefresh = { vm.loadNext() },
-        onHistory = { navigator.navigate(HistoryScreenDestination()) })
+        onHistory = { navigator.navigate(HistoryScreenDestination()) }
+    )
 
 }
 
 @OptIn(ExperimentalAnimationApi::class) //optional for quick demonstration, not actually needed here
 @Composable
 fun CatFactScreenContent(state: CatFactState, onRefresh: () -> Unit = {}, onHistory: () -> Unit = {}) {
+
     val formatter = rememberDateFormatter()
-
-
 
     AnimatedContent(targetState = state) { state ->
 
-        Column(Modifier
-            .fillMaxSize()
-            .padding(8.dp),
-            Arrangement.Center,
-            Alignment.CenterHorizontally
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (state) {
                 is DisplayingFact -> {
 
-                    Card(Modifier
-                        .fillMaxWidth()
-                        .heightIn(100.dp, 400.dp),
-                        backgroundColor = MaterialTheme.colors.background
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(100.dp, 400.dp),
                     ) {
-
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(state.imageUrl)
                                 //Workaround coil skipping image loading by using a disk cache key that does not equal to previous
                                 .diskCacheKey(state.text)
                                 .memoryCacheKey(state.text)
+                                .crossfade(true)
                                 .build(),
                             contentDescription = R.string.cat_image.string(),
                             contentScale = ContentScale.Crop
@@ -79,14 +85,15 @@ fun CatFactScreenContent(state: CatFactState, onRefresh: () -> Unit = {}, onHist
                         textAlign = TextAlign.Center,
                         text = state.text
                     )
-
                     Spacer(Modifier.height(12.dp))
+
                     Text(R.string.pattern_updated_at.string(formatter.format(state.createdAt)))
                     Spacer(Modifier.height(12.dp))
 
                     Row(
                         Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly) {
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
                         Button(
                             onClick = onRefresh,
                             content = { Text(R.string.common_another_fact.string()) }
@@ -97,12 +104,8 @@ fun CatFactScreenContent(state: CatFactState, onRefresh: () -> Unit = {}, onHist
                         )
                     }
                 }
-                Error -> {
-                    Text(R.string.common_unknown_error.string())
-                }
-                Loading -> {
-                    CircularProgressIndicator()
-                }
+                Error -> Text(R.string.common_unknown_error.string())
+                Loading -> CircularProgressIndicator()
             }
         }
     }

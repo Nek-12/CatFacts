@@ -15,7 +15,6 @@ data class CatEntity(
 ) : RoomEntity<Long> {
 
     companion object {
-
         const val TABLE_NAME = "cat"
     }
 }

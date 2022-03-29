@@ -17,7 +17,6 @@ abstract class CatDatabase : RoomDatabase() {
     abstract fun catDao(): CatDao
 
     companion object {
-
         val DATABASE_NAME = "cats.db"
     }
 }

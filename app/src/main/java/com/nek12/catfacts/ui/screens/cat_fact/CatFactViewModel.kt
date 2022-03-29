@@ -11,6 +11,7 @@ import com.nek12.catfacts.ui.screens.cat_fact.CatFactState.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.onSubscription
+import logcat.asLog
 import logcat.logcat
 
 

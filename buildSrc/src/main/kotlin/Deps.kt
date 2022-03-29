@@ -92,7 +92,7 @@ object Deps {
 
     object AndroidUtils {
 
-        private const val group = "com.nek12.androidutils"
+        private const val group = "com.github.Nek-12.AndroidUtils"
 
         const val core = "$group:core-ktx:${Versions.utils}"
         const val material = "$group:material-ktx:${Versions.utils}"

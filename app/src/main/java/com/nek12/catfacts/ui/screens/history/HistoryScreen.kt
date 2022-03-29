@@ -36,13 +36,13 @@ fun HistoryScreen() {
             is DisplayingHistory -> {
                 LazyColumn(Modifier.fillMaxSize()) {
                     items(state.items, key = { it.key }) {
+
                         Card(
                             modifier = Modifier.padding(8.dp),
                             backgroundColor = MaterialTheme.colors.background,
                         ) {
-
                             Column(
-                                Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth(),
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally,
                             ) {

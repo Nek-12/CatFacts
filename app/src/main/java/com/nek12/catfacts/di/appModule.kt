@@ -30,8 +30,8 @@ val appModule = module {
 
     single { provideDatabase(get()) }
     single { get<CatDatabase>().catDao() }
-    single { CatRepo(get(), get()) }
 
+    single { CatRepo(get(), get()) }
 
     viewModel { CatFactViewModel(get()) }
     viewModel { HistoryViewModel(get()) }

@@ -33,8 +33,6 @@ class HistoryViewModel(
 
     private fun mapToState(items: List<CatEntity>): HistoryState =
         DisplayingHistory(
-            items.map {
-                CatFactItem(it.id, it.fact, it.created.toZDT())
-            }
+            items.map { CatFactItem(it.id, it.fact, it.created.toZDT()) }
         )
 }
