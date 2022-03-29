@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CatFacts</string>
+    <string name="cat_image">Cat image</string>
+    <string name="pattern_updated_at">Updated at: %s</string>
+    <string name="common_another_fact">Another Fact!</string>
+    <string name="common_unknown_error">We\'re sorry, an error occurred</string>
+    <string name="show_history">Fact History</string>
+</resources>
